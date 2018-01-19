@@ -1,4 +1,4 @@
-FROM cern/slc6-base
+FROM scientificlinux/sl:6
 MAINTAINER UKAEA <admin@fispact.ukaea.uk>
 
 # Build-time metadata as defined at http://label-schema.org
@@ -22,7 +22,6 @@ ENV RUN_SCRIPT ~/.bashrc
 WORKDIR /
 
 # Install additional packages
-RUN whoami
 RUN yum install -y wget which make cmake less doxygen rsync nano tar texi2html texinfo xz
 RUN yum install -y libgcc gcc-c++
 RUN yum install -y gmp-devel mpfr-devel libmpc-devel openssl-devel
