@@ -21,6 +21,10 @@ ENV RUN_SCRIPT ~/.bashrc
 
 WORKDIR /
 
+# Fix rmp database due to fatal yum error
+RUN rm -f /var/lib/rpm/__db*
+RUN rpm --rebuilddb
+
 # Install additional packages
 RUN yum -y update
 RUN yum install -y wget which make cmake less doxygen rsync nano tar texi2html texinfo xz
@@ -33,23 +37,6 @@ RUN yum install -y gsl-devel lapack-devel freetype-devel
 RUN yum -y install yum-utils
 RUN yum -y groupinstall development
 RUN yum install -y zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel db4-devel libpcap-devel xz-devel expat-devel
-
-# we must compile gcc ourselves since we can only get gcc-4 from yum
-RUN wget https://ftp.gnu.org/gnu/gcc/gcc-6.2.0/gcc-6.2.0.tar.gz
-RUN tar -xzf gcc-6.2.0.tar.gz
-RUN mkdir gcc-6.2.0-build
-
-WORKDIR /gcc-6.2.0-build
-
-RUN ../gcc-6.2.0/configure --enable-languages=c,c++,fortran --disable-multilib
-RUN make -j4
-RUN make install
-
-RUN ln -s /usr/bin/g++ /usr/local/bin/g++-6.2.0
-RUN ln -s /usr/bin/gcc /usr/local/bin/gcc-6.2.0
-RUN ln -s /usr/bin/gfortran /usr/local/bin/gfortran-6.2.0
-
-WORKDIR /
 
 RUN wget http://python.org/ftp/python/3.6.3/Python-3.6.3.tar.xz
 RUN tar xf Python-3.6.3.tar.xz
