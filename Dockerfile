@@ -21,12 +21,8 @@ ENV RUN_SCRIPT ~/.bashrc
 
 WORKDIR /
 
-# Fix rmp database due to fatal yum error
-RUN rm -f /var/lib/rpm/__db*
-RUN rpm --rebuilddb
-
 # Install additional packages
-RUN yum -y update
+RUN whoami
 RUN yum install -y wget which make cmake less doxygen rsync nano tar texi2html texinfo xz
 RUN yum install -y libgcc gcc-c++
 RUN yum install -y gmp-devel mpfr-devel libmpc-devel openssl-devel
