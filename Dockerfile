@@ -30,6 +30,7 @@ RUN yum -y update && \
     yum -y install yum-utils && \
     yum -y groupinstall development && \
     yum install -y zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel && \
-    yum install -y readline-devel tk-devel gdbm-devel db4-devel libpcap-devel xz-devel expat-devel
+    yum install -y readline-devel tk-devel gdbm-devel db4-devel libpcap-devel xz-devel expat-devel && \
+    dnf install glibc-static libstdc++-static -y
 
 CMD /bin/bash $RUN_SCRIPT
